@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Tracker - Калькулятор БЖУ и Калорий</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 3D Background Elements */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .food-shape {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            transform-style: preserve-3d;
+            animation: rotate 25s infinite linear;
+        }
+        
+        .apple-shape {
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #d63031);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .banana-shape {
+            background: linear-gradient(to bottom, #ffeaa7, #fdcb6e);
+            border-radius: 50%;
+            width: 30px;
+            height: 60px;
+            transform: rotate(20deg);
+        }
+        
+        .chicken-shape {
+            background: linear-gradient(to bottom, #e17055, #d63031);
+            border-radius: 40% 40% 10% 10%;
+            width: 45px;
+            height: 40px;
+        }
+        
+        .rice-shape {
+            background: linear-gradient(to bottom, #e17055, #d63031);
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+        }
+        
+        .veggie-shape {
+            background: linear-gradient(to bottom, #00b894, #00a085);
+            border-radius: 50% 50% 0 50%;
+            width: 40px;
+            height: 40px;
+            transform: rotate(45deg);
+        }
+        
+        .food-shape:nth-child(1) {
+            top: 15%;
+            left: 10%;
+            animation-duration: 30s;
+        }
+        
+        .food-shape:nth-child(2) {
+            top: 65%;
+            left: 80%;
+            animation-duration: 35s;
+        }
+        
+        .food-shape:nth-child(3) {
+            top: 35%;
+            left: 50%;
+            animation-duration: 40s;
+        }
+        
+        .food-shape:nth-child(4) {
+            top: 75%;
+            left: 20%;
+            animation-duration: 25s;
+        }
+        
+        .food-shape:nth-child(5) {
+            top: 25%;
+            left: 70%;
+            animation-duration: 32s;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .results-section {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #4ecdc4;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        button {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .food-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .food-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .total-results {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .result-value {
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+        
+        .macro-bar {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .macro-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .protein-bar {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .fat-bar {
+            background: linear-gradient(90deg, #ffd166, #ffe18e);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .carbs-bar {
+            background: linear-gradient(90deg, #06d6a0, #4ce0b3);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .macro-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .delete-btn {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: none;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .delete-btn:hover {
+            background: rgba(255, 107, 107, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- 3D Food Background Elements -->
+    <div class="background-elements">
+        <div class="food-shape apple-shape"></div>
+        <div class="food-shape banana-shape"></div>
+        <div class="food-shape chicken-shape"></div>
+        <div class="food-shape rice-shape"></div>
+        <div class="food-shape veggie-shape"></div>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Food Tracker</h1>
+            <p class="tagline">Считайте калории и БЖУ для достижения ваших фитнес-целей</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="input-section">
+                <h2 class="section-title">Добавить продукт</h2>
+                
+                <div class="form-group">
+                    <label for="food-select">Выберите продукт:</label>
+                    <select id="food-select">
+                        <option value="">-- Выберите продукт --</option>
+                        <option value="apple">Яблоко</option>
+                        <option value="banana">Банан</option>
+                        <option value="orange">Апельсин</option>
+                        <option value="chicken_breast">Куриная грудка</option>
+                        <option value="salmon">Лосось</option>
+                        <option value="rice">Рис (вареный)</option>
+                        <option value="oats">Овсянка</option>
+                        <option value="eggs">Яйца (куринные)</option>
+                        <option value="milk">Молоко (2.5%)</option>
+                        <option value="yogurt">Йогурт (0%)</option>
+                        <option value="bread">Хлеб цельнозерновой</option>
+                        <option value="cheese">Сыр твердый</option>
+                        <option value="avocado">Авокадо</option>
+                        <option value="broccoli">Брокколи</option>
+                        <option value="spinach">Шпинат</option>
+                        <option value="sweet_potato">Сладкий картофель</option>
+                        <option value="peanuts">Арахис</option>
+                        <option value="almonds">Миндаль</option>
+                        <option value="olive_oil">Оливковое масло</option>
+                        <option value="dark_chocolate">Темный шоколад (70%)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="grams">Количество в граммах:</label>
+                    <input type="number" id="grams" placeholder="Введите количество в граммах" min="1" value="100">
+                </div>
+                
+                <button id="add-food-btn">Добавить продукт</button>
+            </div>
+            
+            <div class="results-section">
+                <h2 class="section-title">Ваш прием пищи</h2>
+                
+                <div id="food-list">
+                    <!-- Food items will be added here dynamically -->
+                </div>
+                
+                <div class="total-results">
+                    <h3 class="section-title">Итого</h3>
+                    
+                    <div class="result-item">
+                        <span>Калории:</span>
+                        <span id="total-calories" class="result-value">0</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Белки:</span>
+                        <span id="total-protein" class="result-value">0г</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Жиры:</span>
+                        <span id="total-fat" class="result-value">0г</span>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Углеводы:</span>
+                        <span id="total-carbs" class="result-value">0г</span>
+                    </div>
+                    
+                    <div class="macro-bar">
+                        <div class="macro-fill protein-bar" id="protein-bar"></div>
+                    </div>
+                    <div class="macro-labels">
+                        <span>Белки</span>
+                        <span>Жиры</span>
+                        <span>Углеводы</span>
+                    </div>
+                    
+                    <div class="macro-bar">
+                        <div class="macro-fill fat-bar" id="fat-bar"></div>
+                    </div>
+                    
+                    <div class="macro-bar">
+                        <div class="macro-fill carbs-bar" id="carbs-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Food Tracker - Следите за своим питанием и достигайте целей</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Food database with nutritional information per 100g
+        const foodDatabase = {
+            apple: { name: "Яблоко", calories: 52, protein: 0.3, fat: 0.2, carbs: 14 },
+            banana: { name: "Банан", calories: 89, protein: 1.1, fat: 0.3, carbs: 23 },
+            orange: { name: "Апельсин", calories: 47, protein: 0.9, fat: 0.1, carbs: 12 },
+            chicken_breast: { name: "Куриная грудка", calories: 165, protein: 31, fat: 3.6, carbs: 0 },
+            salmon: { name: "Лосось", calories: 208, protein: 20, fat: 13, carbs: 0 },
+            rice: { name: "Рис (вареный)", calories: 130, protein: 2.7, fat: 0.3, carbs: 28 },
+            oats: { name: "Овсянка", calories: 389, protein: 16.9, fat: 6.9, carbs: 66.3 },
+            eggs: { name: "Яйца (куринные)", calories: 155, protein: 13, fat: 11, carbs: 1.1 },
+            milk: { name: "Молоко (2.5%)", calories: 50, protein: 3.2, fat: 2.5, carbs: 4.8 },
+            yogurt: { name: "Йогурт (0%)", calories: 59, protein: 10, fat: 0.4, carbs: 3.6 },
+            bread: { name: "Хлеб цельнозерновой", calories: 247, protein: 13.2, fat: 3.3, carbs: 41.5 },
+            cheese: { name: "Сыр твердый", calories: 402, protein: 25, fat: 33, carbs: 2.4 },
+            avocado: { name: "Авокадо", calories: 160, protein: 2, fat: 15, carbs: 9 },
+            broccoli: { name: "Брокколи", calories: 34, protein: 2.8, fat: 0.4, carbs: 7 },
+            spinach: { name: "Шпинат", calories: 23, protein: 2.9, fat: 0.4, carbs: 3.6 },
+            sweet_potato: { name: "Сладкий картофель", calories: 86, protein: 1.6, fat: 0.1, carbs: 20.1 },
+            peanuts: { name: "Арахис", calories: 567, protein: 26, fat: 49, carbs: 16 },
+            almonds: { name: "Миндаль", calories: 579, protein: 21, fat: 50, carbs: 22 },
+            olive_oil: { name: "Оливковое масло", calories: 884, protein: 0, fat: 100, carbs: 0 },
+            dark_chocolate: { name: "Темный шоколад (70%)", calories: 598, protein: 7.8, fat: 43, carbs: 46 }
+        };
+        
+        // Current food list
+        let currentFoods = [];
+        
+        // DOM elements
+        const foodSelect = document.getElementById('food-select');
+        const gramsInput = document.getElementById('grams');
+        const addFoodBtn = document.getElementById('add-food-btn');
+        const foodList = document.getElementById('food-list');
+        const totalCaloriesEl = document.getElementById('total-calories');
+        const totalProteinEl = document.getElementById('total-protein');
+        const totalFatEl = document.getElementById('total-fat');
+        const totalCarbsEl = document.getElementById('total-carbs');
+        const proteinBar = document.getElementById('protein-bar');
+        const fatBar = document.getElementById('fat-bar');
+        const carbsBar = document.getElementById('carbs-bar');
+        
+        // Add food to list
+        addFoodBtn.addEventListener('click', () => {
+            const foodKey = foodSelect.value;
+            const grams = parseFloat(gramsInput.value);
+            
+            if (!foodKey || !grams || isNaN(grams) || grams <= 0) {
+                alert('Пожалуйста, выберите продукт и укажите количество в граммах');
+                return;
+            }
+            
+            const foodData = foodDatabase[foodKey];
+            if (!foodData) return;
+            
+            // Calculate nutrition for specified grams
+            const multiplier = grams / 100;
+            const item = {
+                id: Date.now(),
+                key: foodKey,
+                name: foodData.name,
+                grams: grams,
+                calories: Math.round(foodData.calories * multiplier),
+                protein: Math.round(foodData.protein * multiplier * 100) / 100,
+                fat: Math.round(foodData.fat * multiplier * 100) / 100,
+                carbs: Math.round(foodData.carbs * multiplier * 100) / 100
+            };
+            
+            currentFoods.push(item);
+            updateUI();
+            
+            // Reset form
+            gramsInput.value = '100';
+            foodSelect.value = '';
+        });
+        
+        // Update UI with current foods
+        function updateUI() {
+            // Update food list
+            foodList.innerHTML = '';
+            currentFoods.forEach(item => {
+                const foodItem = document.createElement('div');
+                foodItem.className = 'food-item';
+                foodItem.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <small>${item.grams}г</small>
+                    </div>
+                    <div style="text-align: right;">
+                        <div>Кал: ${item.calories}</div>
+                        <div>Б: ${item.protein}г Ж: ${item.fat}г У: ${item.carbs}г</div>
+                    </div>
+                    <button class="delete-btn" data-id="${item.id}">X</button>
+                `;
+                foodList.appendChild(foodItem);
+            });
+            
+            // Add event listeners to delete buttons
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = parseInt(e.target.getAttribute('data-id'));
+                    currentFoods = currentFoods.filter(item => item.id !== id);
+                    updateUI();
+                });
+            });
+            
+            // Calculate totals
+            const totalCalories = currentFoods.reduce((sum, item) => sum + item.calories, 0);
+            const totalProtein = currentFoods.reduce((sum, item) => sum + item.protein, 0);
+            const totalFat = currentFoods.reduce((sum, item) => sum + item.fat, 0);
+            const totalCarbs = currentFoods.reduce((sum, item) => sum + item.carbs, 0);
+            
+            // Update totals display
+            totalCaloriesEl.textContent = totalCalories;
+            totalProteinEl.textContent = totalProtein.toFixed(1) + 'г';
+            totalFatEl.textContent = totalFat.toFixed(1) + 'г';
+            totalCarbsEl.textContent = totalCarbs.toFixed(1) + 'г';
+            
+            // Update macro bars
+            const totalMacros = totalProtein + totalFat + totalCarbs;
+            if (totalMacros > 0) {
+                const proteinPercent = (totalProtein / totalMacros) * 100;
+                const fatPercent = (totalFat / totalMacros) * 100;
+                const carbsPercent = (totalCarbs / totalMacros) * 100;
+                
+                proteinBar.style.width = proteinPercent + '%';
+                fatBar.style.width = fatPercent + '%';
+                carbsBar.style.width = carbsPercent + '%';
+            } else {
+                proteinBar.style.width = '0%';
+                fatBar.style.width = '0%';
+                carbsBar.style.width = '0%';
+            }
+        }
+        
+        // Initialize with some example foods for demonstration
+        window.addEventListener('load', () => {
+            // Add some sample foods for demo purposes
+            setTimeout(() => {
+                currentFoods = [
+                    {
+                        id: 1,
+                        key: 'chicken_breast',
+                        name: 'Куриная грудка',
+                        grams: 150,
+                        calories: 248,
+                        protein: 46.5,
+                        fat: 5.4,
+                        carbs: 0
+                    },
+                    {
+                        id: 2,
+                        key: 'rice',
+                        name: 'Рис (вареный)',
+                        grams: 200,
+                        calories: 260,
+                        protein: 5.4,
+                        fat: 0.6,
+                        carbs: 56
+                    }
+                ];
+                updateUI();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
