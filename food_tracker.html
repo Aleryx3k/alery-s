@@ -31,43 +31,79 @@
             overflow: hidden;
         }
         
-        .cube {
+        .food-shape {
             position: absolute;
+            width: 60px;
+            height: 60px;
+            transform-style: preserve-3d;
+            animation: rotate 25s infinite linear;
+        }
+        
+        .apple-shape {
+            background: radial-gradient(circle at 30% 30%, #ff6b6b, #d63031);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .banana-shape {
+            background: linear-gradient(to bottom, #ffeaa7, #fdcb6e);
+            border-radius: 50%;
+            width: 30px;
+            height: 60px;
+            transform: rotate(20deg);
+        }
+        
+        .chicken-shape {
+            background: linear-gradient(to bottom, #e17055, #d63031);
+            border-radius: 40% 40% 10% 10%;
+            width: 45px;
+            height: 40px;
+        }
+        
+        .rice-shape {
+            background: linear-gradient(to bottom, #e17055, #d63031);
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+        }
+        
+        .veggie-shape {
+            background: linear-gradient(to bottom, #00b894, #00a085);
+            border-radius: 50% 50% 0 50%;
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            transform-style: preserve-3d;
-            animation: rotate 20s infinite linear;
+            transform: rotate(45deg);
         }
         
-        .cube:nth-child(1) {
-            top: 20%;
+        .food-shape:nth-child(1) {
+            top: 15%;
             left: 10%;
-            animation-duration: 25s;
-        }
-        
-        .cube:nth-child(2) {
-            top: 60%;
-            left: 80%;
             animation-duration: 30s;
         }
         
-        .cube:nth-child(3) {
-            top: 40%;
-            left: 50%;
+        .food-shape:nth-child(2) {
+            top: 65%;
+            left: 80%;
             animation-duration: 35s;
         }
         
-        .cube:nth-child(4) {
-            top: 70%;
-            left: 20%;
-            animation-duration: 20s;
+        .food-shape:nth-child(3) {
+            top: 35%;
+            left: 50%;
+            animation-duration: 40s;
         }
         
-        .cube:nth-child(5) {
-            top: 30%;
+        .food-shape:nth-child(4) {
+            top: 75%;
+            left: 20%;
+            animation-duration: 25s;
+        }
+        
+        .food-shape:nth-child(5) {
+            top: 25%;
             left: 70%;
-            animation-duration: 28s;
+            animation-duration: 32s;
         }
         
         @keyframes rotate {
@@ -154,9 +190,14 @@
             padding: 0.8rem;
             border: none;
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             font-size: 1rem;
+        }
+        
+        select option {
+            background: #1a1a2e;
+            color: white;
         }
         
         button {
@@ -270,13 +311,13 @@
     </style>
 </head>
 <body>
-    <!-- 3D Background Elements -->
+    <!-- 3D Food Background Elements -->
     <div class="background-elements">
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
-        <div class="cube"></div>
+        <div class="food-shape apple-shape"></div>
+        <div class="food-shape banana-shape"></div>
+        <div class="food-shape chicken-shape"></div>
+        <div class="food-shape rice-shape"></div>
+        <div class="food-shape veggie-shape"></div>
     </div>
     
     <div class="container">
