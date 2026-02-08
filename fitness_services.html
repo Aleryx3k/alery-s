@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Services - Фитнес услуги под ключ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .services {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .about {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            height: 300px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .contact {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: #333;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+        }
+        
+        button:hover {
+            background: #555;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Фитнес Услуги Профессионала</h1>
+            <p class="tagline">Трансформация тела начинается с первого шага</p>
+        </div>
+    </header>
+
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Наши Услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">💪</div>
+                    <h3 class="service-title">Персональные тренировки</h3>
+                    <p>Индивидуальные программы тренировок, разработанные под ваши цели и уровень подготовки.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🥗</div>
+                    <h3 class="service-title">Питание</h3>
+                    <p>Сбалансированные планы питания, адаптированные под ваш образ жизни и цели.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏃‍♂️</div>
+                    <h3 class="service-title">Консультации</h3>
+                    <p>Профессиональные консультации по фитнесу, здоровью и достижению целей.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🧘‍♀️</div>
+                    <h3 class="service-title">Йога и растяжка</h3>
+                    <p>Занятия йогой и растяжкой для улучшения гибкости и восстановления после тренировок.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏋️</div>
+                    <h3 class="service-title">Групповые занятия</h3>
+                    <p>Мотивирующие групповые тренировки для всех уровней подготовки.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Отслеживание прогресса</h3>
+                    <p>Регулярный мониторинг результатов и корректировка программы при необходимости.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">О Нас</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Мы - команда профессиональных фитнес-тренеров и нутрициологов с более чем 10-летним опытом работы в индустрии здоровья и фитнеса.</p>
+                    <br>
+                    <p>Наша миссия - помочь каждому человеку достичь своих фитнес-целей безопасно и эффективно, вне зависимости от начального уровня подготовки.</p>
+                    <br>
+                    <p>Мы используем научно обоснованные методики и индивидуальный подход к каждому клиенту, чтобы обеспечить максимальные результаты.</p>
+                </div>
+                <div class="about-image">
+                    Здоровое тело - здоровый дух!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с Нами</h2>
+            <p>Готовы начать свой путь к здоровью и хорошей физической форме? Оставьте свои контакты!</p>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" placeholder="Ваше имя">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Ваш email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" placeholder="Ваш телефон">
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" rows="4" placeholder="Расскажите о своих целях"></textarea>
+                </div>
+                <button type="submit">Отправить заявку</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Фитнес Услуги Профессионала. Все права защищены.</p>
+            <p>Телефон: +7 (XXX) XXX-XX-XX | Email: info@fitness-pro.ru</p>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
